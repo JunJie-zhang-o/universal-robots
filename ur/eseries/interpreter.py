@@ -1,7 +1,8 @@
+import atexit
 import logging
 import re
 import socket
-import atexit
+
 UR_INTERPRETER_SOCKET = 30020
 
 
