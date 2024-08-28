@@ -3,7 +3,7 @@
 '''
 Author       : Jay jay.zhangjunjie@outlook.com
 Date         : 2024-07-04 10:46:44
-LastEditTime : 2024-07-15 13:56:42
+LastEditTime : 2024-08-28 21:43:44
 LastEditors  : Jay jay.zhangjunjie@outlook.com
 Description  : 
 '''
@@ -14,6 +14,7 @@ import atexit
 import socket
 import time
 from enum import Enum, IntEnum
+from typing import Union
 
 import pysftp
 
@@ -187,7 +188,7 @@ class Dashboard:
             return False
 
     
-    def running(self) -> bool | None:
+    def running(self) -> Union[bool, None]:
         """
             program running status.
         """
@@ -200,7 +201,7 @@ class Dashboard:
             return None
 
 
-    def robotmode(self) -> RobotMode | None:
+    def robotmode(self) -> Union[RobotMode, None]:
         """
             enquiry robot mode.
         """
@@ -213,7 +214,7 @@ class Dashboard:
             return None
 
     
-    def getLoadedProgram(self):
+    def getLoadedProgram(self) -> Union[str, None]:
         """
             which program is loaded.
         """
@@ -266,7 +267,7 @@ class Dashboard:
         [state, programName] = ret.split(' ')
         return ProgramState[state], programName
 
-    def polyscopeVersion(self):
+    def polyscopeVersion(self) -> str:
         """
             return version information for the UR SW installed on the robot.
         """
@@ -274,7 +275,7 @@ class Dashboard:
         return ret
 
     
-    def version(self):
+    def version(self) -> str:
         """
             returns the version number of the UR SW installed on the robot.
         """ 
@@ -282,7 +283,7 @@ class Dashboard:
         return ret
 
     
-    def setOperationalMode(self, mode:OperationalMode):
+    def setOperationalMode(self, mode:OperationalMode) -> bool:
         """
             control the operational mode
         """
@@ -296,7 +297,7 @@ class Dashboard:
             return False
 
     
-    def getOperationalMode(self):
+    def getOperationalMode(self) -> OperationalMode:
         """
             Returns the operational mode as MANUAL or AUTOMATIC if the password has been set for Mode in Settings
         """
@@ -304,7 +305,7 @@ class Dashboard:
         return OperationalMode[ret]
 
 
-    def clearOperationalMode(self):
+    def clearOperationalMode(self) -> bool:
         """
             clear Operational Mode
         """
@@ -340,7 +341,7 @@ class Dashboard:
         return True if ret == "Brake releasing" else False
 
 
-    def safetyStatus(self) -> SafetyStatus | None:
+    def safetyStatus(self) -> Union[SafetyStatus, None]:
         """
             safety status inquiry.
         """
@@ -408,7 +409,7 @@ class Dashboard:
         return True if ret == "true" else False
 
 
-    def getSerialNumber(self) -> str | None:
+    def getSerialNumber(self) -> Union[str, None]:
         """
             returns serial number of the robot.
         """
@@ -416,7 +417,7 @@ class Dashboard:
         return ret
 
 
-    def getRobotModel(self) -> str | None:
+    def getRobotModel(self) -> Union[str, None]:
         """
             return the robot model.
         """
@@ -424,7 +425,7 @@ class Dashboard:
         return ret
 
 
-    def generateFlightReport(self, reportType:ReportType=ReportType.SYSTEM) -> str | None:
+    def generateFlightReport(self, reportType:ReportType=ReportType.SYSTEM) -> Union[str, None]:
         """
             Triggers a flight report of the following type:
                 Controller - report with information specific for diagnosing controller errors.For example, in case of protective stops, faults or violations
@@ -441,7 +442,7 @@ class Dashboard:
             return None
 
     
-    def generateSupportFile(self, directoryPath: str):
+    def generateSupportFile(self, directoryPath: str) -> Union[str, None]:
         """
             Generates a flight report of the type "System" and creates a compressed collection of all the
             existing flight reports on the robot along with the generated flight report. 
