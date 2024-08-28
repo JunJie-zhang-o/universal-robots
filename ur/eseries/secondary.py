@@ -6,6 +6,7 @@
 
 
 import struct
+
 from ur.eseries.datastream import DataStreamParse, URDataClass
 from ur.eseries.datastruct import *
 from ur.eseries.primary import Primary
