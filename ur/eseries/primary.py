@@ -3,8 +3,8 @@
 '''
 Author       : Jay jay.zhangjunjie@outlook.com
 Date         : 2024-07-07 20:56:17
-LastEditTime : 2024-09-20 16:11:55
-LastEditors  : jay jay.zhangjunjie@outlook.com
+LastEditTime : 2024-09-25 10:23:53
+LastEditors  : jetson.nx jay.zhangjunjie@outlook.com
 Description  : 
 '''
 
@@ -14,8 +14,8 @@ import struct
 
 from loguru import logger
 
-from .datastream import DataStreamParse, URDataClass
-from .datastruct import *
+from ur.eseries.datastream import DataStreamParse, URDataClass
+from ur.eseries.datastruct import *
 
 
 class Primary:
@@ -82,7 +82,7 @@ class PrimaryMonitor(DataStreamParse):
         self.RobotModeData            : RobotModeData         | None = None
         self.JointData                : RobotModeData         | None = None
         self.ToolData                 : RobotModeData         | None = None
-        self.ToolData                 : RobotModeData         | None = None
+        # self.ToolData                 : RobotModeData         | None = None
         self.MasterboardData1         : MasterboardData1      | None = None
         self.MasterboardData2         : MasterboardData2      | None = None
         self.CartesianInfo            : CartesianInfo         | None = None
@@ -236,7 +236,8 @@ class PrimaryMonitor(DataStreamParse):
                         n = 0
                         # 按照实际类的参数进行调整,主要是兼顾list的情况
                         for param in params:
-                            if params[param].__name__ == "ClassVar":
+                            # if params[param].__name__ == "ClassVar":      # python3.8 __getattr__ raise AttributeError(attr) | the ClassVar dont have __name__ attrribute
+                            if "typing.ClassVar" in str(params[param]):
                                 continue
                             if  params[param] is JointsFloat or params[param] is JointsInt:     # 组合6个关节的参数
                                 initArgs.append(args[n:n+6])

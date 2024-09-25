@@ -6,10 +6,9 @@
 
 
 import struct
-
-from .datastream import DataStreamParse, URDataClass
-from .datastruct import *
-from .primary import Primary
+from ur.eseries.datastream import DataStreamParse, URDataClass
+from ur.eseries.datastruct import *
+from ur.eseries.primary import Primary
 
 
 class Secondary(Primary):
@@ -81,7 +80,8 @@ class SecondaryMonitor(DataStreamParse):
                         n = 0
                         # 按照实际类的参数进行调整,主要是兼顾list的情况
                         for param in params:
-                            if params[param].__name__ == "ClassVar":
+                            # if params[param].__name__ == "ClassVar":      # python3.8 __getattr__ raise AttributeError(attr) | the ClassVar dont have __name__ attrribute
+                            if "typing.ClassVar" in str(params[param]):
                                 continue
                             if  params[param] is JointsFloat or params[param] is JointsInt:     # 组合6个关节的参数
                                 initArgs.append(args[n:n+6])
