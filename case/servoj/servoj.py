@@ -3,7 +3,7 @@
 '''
 Author       : Jay jay.zhangjunjie@outlook.com
 Date         : 2024-07-24 13:44:35
-LastEditTime : 2024-08-07 11:12:55
+LastEditTime : 2024-11-21 11:33:30
 LastEditors  : Jay jay.zhangjunjie@outlook.com
 Description  : 触觉反向控制机器人-移动回弹
 '''
@@ -24,6 +24,7 @@ from ur.eseries import RTDE, ConfigFile, URERobot
 # import numpy as np
 # np.set_printoptions(suppress=True, threshold=np.nan)
 
+WORKSPACE_PATH = os.environ.get("WORKSPACEPATH")
 
 # ----------------utils-------------
 def setp_to_list(setp):
@@ -51,7 +52,7 @@ class Servoj():
 
         self.rtde = self.robot.createRTDEInterface()
 
-        conf = ConfigFile('./examples/rtde_data_example.xml')
+        conf = ConfigFile(f'{WORKSPACE_PATH}/case/servoj/rtde_data_example.xml')
         self.state_names, self.state_types = conf.get_recipe('state')  # Define recipe for access to robot output ex. joints,tcp etc.
         self.setp_names, self.setp_types = conf.get_recipe('setp')  # Define recipe for access to robot input
         self.watchdog_names, self.watchdog_types= conf.get_recipe('watchdog')
